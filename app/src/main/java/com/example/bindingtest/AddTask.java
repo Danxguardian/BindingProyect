@@ -12,36 +12,49 @@ import android.widget.Button;
 
 import com.example.bindingtest.database.DBHelper;
 import com.example.bindingtest.databinding.ActivityAddTaskBinding;
+import com.google.gson.Gson;
 
 public class AddTask extends AppCompatActivity {
-    Button btnAddTask;
     DBHelper dbHelper;
     SQLiteDatabase db;
+    Gson gson;
+    Task task;
+    Boolean newTask;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_add_task);
         final ActivityAddTaskBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_add_task);
-
         dbHelper = new DBHelper(this);
         db = dbHelper.getWritableDatabase();
+        newTask = true;
+        String taskObject = getIntent().getStringExtra("taskObject");
 
+        //Para usar la misma vista usamos intent con parametros para validar si es nueva tarea o editar tarea
+        if(!taskObject.equals("")){
+            newTask = false;
+            gson = new Gson();
+            task = gson.fromJson(taskObject, Task.class);
+            binding.setTask(task);
+        }
+
+        //Boton Guardar
         binding.btnAddTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("binding", binding.etTitle.getText().toString());
-                Log.d("binding", binding.etDescription.getText().toString());
+                if(newTask) {
+                    task = new Task(binding.etTitle.getText().toString(),binding.etDescription.getText().toString(),0);
+                    dbHelper.insertTask(task,db);
+                } else {
+                    dbHelper.updateRowById(task, db, task.get_id());
+                }
 
-                Task task = new Task(binding.etTitle.getText().toString(),binding.etDescription.getText().toString(),0);
-                dbHelper.insertTask(task,db);
+
                 Intent returnIntent = new Intent();
                 setResult(Activity.RESULT_OK, returnIntent);
                 finish();
 
             }
         });
-
     }
-
-
 }

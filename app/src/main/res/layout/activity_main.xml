@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<android.support.constraint.ConstraintLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,9 +13,10 @@
         android:layout_height="match_parent">
 
         <ListView
-            android:id="@+id/listView"
+            android:id="@+id/lvTask"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabAddTask"
@@ -23,6 +25,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:layout_gravity="bottom|right"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="24dp"
             android:clickable="true"
             android:focusable="true"
             app:backgroundTint="@color/colorAccent"
@@ -34,3 +38,4 @@
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
+</layout>

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">BindingTest</string>
+    <string name="dialog_message_delete">¿Desea eliminar la tarea?</string>
+    <string name="dialog_title">¡Alerta!</string>
+    <string name="dialog_btn_borrar">Borrar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="btnSaveTask">Guardar</string>
 </resources>

@@ -28,12 +28,12 @@
             android:ems="10"
             android:hint="Descripción"
             android:inputType="textPersonName"
-            android:text="@{task.description}"/>
+            android:text="@={task.description}"/>
 
         <Button
             android:id="@+id/btnAddTask"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="@string/btnSaveTask" />
     </LinearLayout>
 </layout>

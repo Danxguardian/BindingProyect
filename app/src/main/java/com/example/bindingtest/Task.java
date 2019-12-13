@@ -10,8 +10,6 @@ public class Task {
         this.description = description;
     }
     //getters and setters
-
-
     public Task(String title, String description, int _id) {
         this.title = title;
         this.description = description;

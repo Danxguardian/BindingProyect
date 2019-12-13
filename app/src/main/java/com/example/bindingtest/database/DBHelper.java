@@ -17,11 +17,11 @@ import java.util.List;
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String COMMENTS_TABLE_CREATE = "" +
-            "CREATE TABLE recipes(" +
+            "CREATE TABLE task(" +
             "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
             "title TEXT, " +
             "description TEXT)";
-    private static final String DB_NAME = "task.sqlite";
+    private static final String DB_NAME = "task_list.sqlite";
     private static final int DB_VERSION = 1;
 
     public DBHelper(Context context) {
@@ -29,21 +29,18 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public void insertTask(Task dataModel_task, SQLiteDatabase db){
-        Gson gson = new Gson();
-
         ContentValues cv = new ContentValues();
         cv.put("title", dataModel_task.getTitle());
         cv.put("description", dataModel_task.getDescription());
 
-        db.insert("recipes", null, cv);
+        db.insert("task", null, cv);
     }
 
     public ArrayList<Task> getAllRows(SQLiteDatabase db){
         try {
             ArrayList<Task> tasks = new ArrayList<>();
-            Gson gson = new Gson();
 
-            String query = "SELECT * FROM recipes";
+            String query = "SELECT * FROM task";
             Cursor cursor = db.rawQuery(query, null);
             if (cursor != null && cursor.moveToFirst()) {
                 do {
@@ -65,38 +62,25 @@ public class DBHelper extends SQLiteOpenHelper {
         return null;
     }
 
-    public void getRowById(){
-        //regresar la fila seleccionada en un arraylist de tipo recipe
-    }
-/*
-    public void updateRowById(DataModel_Recipe dataModel_recipe, SQLiteDatabase db, int id){
-        Gson gson = new Gson();
-        String ingredientsJson = gson.toJson(dataModel_recipe.getIngredients());
-        String stepsJson = gson.toJson(dataModel_recipe.getSteps());
 
+    public void updateRowById(Task task, SQLiteDatabase db, int id){
         ContentValues cv = new ContentValues();
-        cv.put("title", dataModel_recipe.getTitle());
-        cv.put("description", dataModel_recipe.getDescription());
-        cv.put("photo", dataModel_recipe.getPhoto());
-        cv.put("timeHour", dataModel_recipe.getTimeHour());
-        cv.put("timeMinute", dataModel_recipe.getTimeMinute());
-        cv.put("difficulty", dataModel_recipe.getDifficulty());
-        cv.put("portions", dataModel_recipe.getPortions());
-        cv.put("ingredients", ingredientsJson);
-        cv.put("steps", stepsJson);
+        cv.put("title", task.getTitle());
+        cv.put("description", task.getDescription());
 
-        db.update("recipes", cv, "_id="+id, null);
 
-    }*/
+        db.update("task", cv, "_id="+id, null);
+
+    }
 
     public void deleteRowById(SQLiteDatabase db, int _id){
-        db.delete("recipes",  "_id = " + _id,null);
+        db.delete("task",  "_id = " + _id,null);
         
     }
 
 
     public void deleteAllDB(SQLiteDatabase db){
-        String query = "DELETE FROM recipes";
+        String query = "DELETE FROM task";
         db.execSQL(query);
     }
 
